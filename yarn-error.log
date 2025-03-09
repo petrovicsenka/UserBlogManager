@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "navipartner-tech-test",
+    "name": "user-blog",
     "version": "1.0.0",
     "license": "UNLICENSED",
     "private": true,

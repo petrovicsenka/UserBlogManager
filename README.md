@@ -1,4 +1,4 @@
-# NaviPartner tech test
+# UserBlog
 
 ## Get started
 
@@ -18,7 +18,8 @@ You will find some template code in the test, which serves as a guidance to get 
 With the template code you will also find some TODOs, these are intended as starting points for how to approach the tasks below. If you want to solve the tasks in another way than following the TODOs, then you are more than welcome to do so as well.
 
 ## Evaluation
-It is no requirement to solve all of the below tasks (and bonus points), we will at all times prefer quality over quantity. A few well-made and good-looking components weight higher than completing every task at lower quality. 
+
+It is no requirement to solve all of the below tasks (and bonus points), we will at all times prefer quality over quantity. A few well-made and good-looking components weight higher than completing every task at lower quality.
 It is up to you to decide, how many tasks and how much time to spent on each task will be sufficient to fully demonstrate your skills.
 
 ## Tasks

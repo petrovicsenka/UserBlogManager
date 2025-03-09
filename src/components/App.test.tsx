@@ -9,7 +9,7 @@ describe("<App>", () => {
     renderWithProviders(<App />);
 
     expect(
-      await screen.findByRole("heading", { name: "NaviPartner Tech Test" }),
+      await screen.findByRole("heading", { name: "UserBlog" }),
     ).toBeInTheDocument();
   });
 });

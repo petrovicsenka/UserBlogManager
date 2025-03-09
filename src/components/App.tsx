@@ -24,7 +24,7 @@ export const App = () => {
     <StyledWrapper>
       <GlobalStyles />
 
-      <h1>NaviPartner Tech Test</h1>
+      <h1>UserBlog</h1>
 
       <h2>Create your app here!</h2>
       <p>Let's get you started:</p>
