@@ -4,27 +4,7 @@ import styled from "styled-components";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
-
-const StyledWrapper = styled.div`
-  padding: 24px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-`;
-
-const Th = styled.th`
-  background-color: #f4f4f4;
-  padding: 12px;
-  text-align: left;
-`;
-
-const Td = styled.td`
-  padding: 12px;
-  border: 1px solid #ddd;
-`;
+import "./Users.module.scss";
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,34 +15,34 @@ const Users = () => {
   }, [dispatch]);
 
   return (
-    <StyledWrapper>
+    <div className="styledWrapper">
       <h1>User List</h1>
 
-      <Table>
+      <table className="table">
         <thead>
           <tr>
-            <Th>ID</Th>
-            <Th>First Name</Th>
-            <Th>Last Name</Th>
-            <Th>Email</Th>
-            <Th>Gender</Th>
-            <Th>IP Address</Th>
+            <th className="th">ID</th>
+            <th className="th">First Name</th>
+            <th className="th">Last Name</th>
+            <th className="th">Email</th>
+            <th className="th">Gender</th>
+            <th className="th">IP Address</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <Td>{user.id}</Td>
-              <Td>{user.first_name}</Td>
-              <Td>{user.last_name}</Td>
-              <Td>{user.email}</Td>
-              <Td>{user.gender}</Td>
-              <Td>{user.ip_address}</Td>
+              <td className="td">{user.id}</td>
+              <td className="td">{user.first_name}</td>
+              <td className="td">{user.last_name}</td>
+              <td className="td">{user.email}</td>
+              <td className="td">{user.gender}</td>
+              <td className="td">{user.ip_address}</td>
             </tr>
           ))}
         </tbody>
-      </Table>
-    </StyledWrapper>
+      </table>
+    </div>
   );
 };
 
