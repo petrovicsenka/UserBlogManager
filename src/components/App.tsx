@@ -5,6 +5,7 @@ import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../redux/user/userSlice";
 import { GlobalStyles } from "./GlobalStyles/GlobalStyles";
+import Users from "./Users/Users";
 
 const StyledWrapper = styled.div`
   padding: 24px;
@@ -27,20 +28,8 @@ export const App = () => {
 
       <h2>Create your app here!</h2>
       <p>Let's get you started:</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {subsetOfUsers.map((user) => (
-            <tr key={user.id}>
-              <td>{user.first_name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      <Users />
     </StyledWrapper>
   );
 };
