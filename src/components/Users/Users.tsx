@@ -4,17 +4,22 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
 import { Table, Pagination } from "antd";
+import { BlogPost, getMembers, User } from "../../data/data";
 import "./Users.module.scss";
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useTypedSelector(selectUsers);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(20);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
     dispatch(fetchUsers());
+    getMembers().then((posts) => {
+      setBlogPosts(posts);
+    });
   }, [dispatch]);
 
   const indexOfLastUser = currentPage * itemsPerPage;
@@ -54,18 +59,42 @@ const Users = () => {
     },
   ];
 
+  // Function to render blog posts for each user
+  const expandedRowRender = (user: User) => {
+    // Filter blog posts for the selected user
+    const userPosts = blogPosts.filter((post) => post.userId === user.id);
+
+    return (
+      <>
+        <h3>Blog Posts</h3>
+        <ul>
+          {userPosts.length > 0 ? (
+            userPosts.map((post: BlogPost) => (
+              <li key={post.id}>
+                <p>{post.title}</p>
+              </li>
+            ))
+          ) : (
+            <p>No blog posts found for this user.</p>
+          )}
+        </ul>
+      </>
+    );
+  };
+
   return (
-    <div className="styledWrapper">
+    <>
       <h1>User List</h1>
 
-      <div className="table">
-        <Table
-          columns={columns}
-          dataSource={currentUsers}
-          pagination={false}
-          rowKey="id"
-        />
-      </div>
+      <Table
+        columns={columns}
+        dataSource={currentUsers}
+        pagination={false}
+        rowKey="id"
+        expandable={{
+          expandedRowRender,
+        }}
+      />
 
       <Pagination
         current={currentPage}
@@ -76,9 +105,9 @@ const Users = () => {
         showSizeChanger={true}
         showQuickJumper
         responsive
-        style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}
+        style={{ marginTop: "1%", display: "flex", justifyContent: "center" }}
       />
-    </div>
+    </>
   );
 };
 
