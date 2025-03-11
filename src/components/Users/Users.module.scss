@@ -1,20 +1,9 @@
 .styledWrapper {
   padding: 24px;
-}
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.th {
-  background-color: #f4f4f4;
-  padding: 12px;
-  text-align: left;
-}
-
-.td {
-  padding: 12px;
-  border: 1px solid #ddd;
+  .table {
+    margin-bottom: 70px;
+    display: flex;
+    justify-content: center;
+  }
 }
