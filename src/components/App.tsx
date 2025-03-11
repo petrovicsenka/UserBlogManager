@@ -26,9 +26,6 @@ export const App = () => {
 
       <h1>UserBlog</h1>
 
-      <h2>Create your app here!</h2>
-      <p>Let's get you started:</p>
-
       <Users />
     </StyledWrapper>
   );

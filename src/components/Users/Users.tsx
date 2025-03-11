@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
@@ -10,9 +9,18 @@ const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useTypedSelector(selectUsers);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const indexOfLastUser = currentPage * itemsPerPage;
+  const indexOfFirstUser = indexOfLastUser - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   return (
     <div className="styledWrapper">
@@ -30,7 +38,7 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {currentUsers.map((user) => (
             <tr key={user.id}>
               <td className="td">{user.id}</td>
               <td className="td">{user.first_name}</td>
@@ -42,6 +50,35 @@ const Users = () => {
           ))}
         </tbody>
       </table>
+
+      <div className="pagination">
+        <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+          First
+        </button>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+        <button
+          onClick={() => setCurrentPage(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          Last
+        </button>
+      </div>
     </div>
   );
 };

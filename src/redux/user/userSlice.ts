@@ -25,7 +25,7 @@ export const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
-      state.userList.push(...payload);
+      state.userList = payload;
     });
   },
 });
