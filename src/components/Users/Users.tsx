@@ -5,11 +5,13 @@ import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
 import { Table, Pagination } from "antd";
 import { BlogPost, getMembers, User } from "../../data/data";
-import "./Users.module.scss";
+import { useNavigate } from "react-router-dom";
+// import "./Users.module.scss";
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useTypedSelector(selectUsers);
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(20);
@@ -68,8 +70,26 @@ const Users = () => {
         <ul>
           {userPosts.length > 0 ? (
             userPosts.map((post: BlogPost) => (
-              <li key={post.id}>
-                <p>{post.title}</p>
+              <li
+                key={post.id}
+                onClick={() => navigate(`/blog/${post.id}`)}
+                style={{
+                  margin: "0.5% 1%",
+                  cursor: "pointer",
+                  transition:
+                    "color 0.3s ease-in-out, text-decoration 0.3s ease-in-out",
+                  color: "#000000",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#1d2bb8";
+                  e.currentTarget.style.textDecoration = "underline";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#000000";
+                  e.currentTarget.style.textDecoration = "none";
+                }}
+              >
+                {post.title}
               </li>
             ))
           ) : (

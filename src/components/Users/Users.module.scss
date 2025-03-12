@@ -1,3 +1,11 @@
 li {
   margin: 0.5% 1%;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+  color: #000000;
+}
+
+li:hover {
+  color: #2a38d8;
+  text-decoration: underline;
 }
