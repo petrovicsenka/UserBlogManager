@@ -59,9 +59,7 @@ const Users = () => {
     },
   ];
 
-  // Function to render blog posts for each user
   const expandedRowRender = (user: User) => {
-    // Filter blog posts for the selected user
     const userPosts = blogPosts.filter((post) => post.userId === user.id);
 
     return (
