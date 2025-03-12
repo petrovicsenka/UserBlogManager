@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BlogPost } from "../../data/data";
 import blogPostsData from "../../data/blog-posts.json";
-import { Card, Typography, Spin } from "antd";
+import { Card, Typography, Spin, Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 // import "./BlogPost.module.scss";
 
@@ -10,6 +10,7 @@ const { Title, Text, Paragraph } = Typography;
 
 const BlogPostPage = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -40,7 +41,24 @@ const BlogPostPage = () => {
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "20px",
+        maxWidth: "840px",
+        margin: "0 auto",
+      }}
+    >
+      <Button
+        color="default"
+        variant="solid"
+        onClick={() => navigate("/")}
+        style={{ marginBottom: 20, alignSelf: "flex-start" }}
+      >
+        Back
+      </Button>
       <Card
         style={{
           maxWidth: 800,
