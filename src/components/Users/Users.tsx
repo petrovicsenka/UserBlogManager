@@ -4,7 +4,13 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
 import { Table, Pagination, message } from "antd";
-import { BlogPost, getMembers, User, deleteUser } from "../../data/data";
+import {
+  BlogPost,
+  getMembers,
+  User,
+  deleteUser,
+  deleteBlogPost,
+} from "../../data/data";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 
@@ -28,13 +34,23 @@ const Users = () => {
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
-  const handleDelete = async (id: number) => {
+  const handleDeleteUser = async (id: number) => {
     try {
       await deleteUser(id);
       message.success("User deleted successfully!");
       dispatch(fetchUsers());
     } catch (error) {
       message.error("Failed to delete user.");
+    }
+  };
+
+  const handleDeleteBlogPost = async (id: string) => {
+    try {
+      await deleteBlogPost(id);
+      message.success("Blog post deleted successfully!");
+      setBlogPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+    } catch (error) {
+      message.error("Failed to delete blog post.");
     }
   };
 
@@ -74,7 +90,7 @@ const Users = () => {
       key: "action",
       render: (record: User) => (
         <DeleteOutlined
-          onClick={() => handleDelete(record.id)}
+          onClick={() => handleDeleteUser(record.id)}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -115,7 +131,24 @@ const Users = () => {
                   e.currentTarget.style.textDecoration = "none";
                 }}
               >
-                {post.title}
+                <span
+                  onClick={() => navigate(`/blog/${post.id}`)}
+                  style={{ flexGrow: 1 }}
+                >
+                  {post.title}
+                </span>
+
+                <DeleteOutlined
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteBlogPost(post.id);
+                  }}
+                  style={{
+                    color: "#1d2bb8",
+                    cursor: "pointer",
+                    marginLeft: 10,
+                  }}
+                />
               </li>
             ))
           ) : (

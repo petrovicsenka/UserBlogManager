@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BlogPost, editBlogPost } from "../../data/data";
+import { BlogPost, deleteBlogPost, editBlogPost } from "../../data/data";
 import blogPostsData from "../../data/blog-posts.json";
 import { Card, Typography, Spin, Button, Input, message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -64,6 +64,18 @@ const BlogPostPage = () => {
       </Title>
     );
   }
+
+  const handleDeletePost = async () => {
+    if (!post) return;
+
+    try {
+      await deleteBlogPost(post.id);
+      message.success("Blog post deleted successfully!");
+      navigate("/");
+    } catch (error) {
+      message.error("Failed to delete blog post.");
+    }
+  };
 
   return (
     <div
@@ -131,6 +143,13 @@ const BlogPostPage = () => {
             </Paragraph>
             <Button onClick={() => setEditing(true)} style={{ marginTop: 10 }}>
               Edit
+            </Button>
+            <Button
+              danger
+              onClick={handleDeletePost}
+              style={{ marginTop: 10, marginLeft: 10 }}
+            >
+              Delete
             </Button>
           </>
         )}
