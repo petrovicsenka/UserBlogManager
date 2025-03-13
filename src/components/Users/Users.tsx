@@ -25,6 +25,7 @@ const Users = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(20);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -33,9 +34,16 @@ const Users = () => {
     });
   }, [dispatch]);
 
+  const filteredUsers = users.filter(
+    (user) =>
+      user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
 
   const handleDeleteUser = async (id: number) => {
     try {
@@ -233,6 +241,13 @@ const Users = () => {
   return (
     <>
       <h1>User List</h1>
+
+      <Input
+        placeholder="Search by name or email"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ marginTop: "0.5%", marginBottom: "0.5%", width: "300px" }}
+      />
 
       <Table
         columns={columns}
