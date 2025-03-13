@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BlogPost, deleteBlogPost, editBlogPost } from "../../data/data";
 import blogPostsData from "../../data/blog-posts.json";
 import { Card, Typography, Spin, Button, Input, message } from "antd";
@@ -12,24 +12,38 @@ const BlogPostPage = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const [post, setPost] = useState<BlogPost | null>(null);
+  // const [post, setPost] = useState<BlogPost | null>(null);
+
+  const location = useLocation();
+  const [post, setPost] = useState<BlogPost | null>(
+    location.state?.post || null,
+  );
+
   const [loading, setLoading] = useState<boolean>(true);
   const [editing, setEditing] = useState<boolean>(false);
 
   const [editedTitle, setEditedTitle] = useState<string>("");
   const [editedBody, setEditedBody] = useState<string>("");
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     const foundPost = blogPostsData.find((p) => p.id === postId);
+  //     if (foundPost) {
+  //       setPost(foundPost);
+  //       setEditedTitle(foundPost.title);
+  //       setEditedBody(foundPost.body);
+  //     }
+  //     setLoading(false);
+  //   }, 500);
+  // }, [postId]);
+
   useEffect(() => {
-    setTimeout(() => {
+    if (!post) {
       const foundPost = blogPostsData.find((p) => p.id === postId);
-      if (foundPost) {
-        setPost(foundPost);
-        setEditedTitle(foundPost.title);
-        setEditedBody(foundPost.body);
-      }
-      setLoading(false);
-    }, 500);
-  }, [postId]);
+      setPost(foundPost || null);
+    }
+    setLoading(false);
+  }, [postId, post]);
 
   const handleSave = async () => {
     if (!post) return;
