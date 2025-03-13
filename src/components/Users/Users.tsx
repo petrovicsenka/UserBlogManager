@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
-import { Table, Pagination } from "antd";
-import { BlogPost, getMembers, User } from "../../data/data";
+import { Table, Pagination, message } from "antd";
+import { BlogPost, getMembers, User, deleteUser } from "../../data/data";
 import { useNavigate } from "react-router-dom";
-// import "./Users.module.scss";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +27,16 @@ const Users = () => {
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteUser(id);
+      message.success("User deleted successfully!");
+      dispatch(fetchUsers());
+    } catch (error) {
+      message.error("Failed to delete user.");
+    }
+  };
 
   const columns = [
     {
@@ -58,6 +68,22 @@ const Users = () => {
       title: "IP Address",
       dataIndex: "ip_address",
       key: "ip_address",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record: User) => (
+        <DeleteOutlined
+          onClick={() => handleDelete(record.id)}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Delete
+        </DeleteOutlined>
+      ),
     },
   ];
 
