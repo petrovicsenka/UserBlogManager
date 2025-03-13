@@ -13,6 +13,7 @@ import {
 } from "../../data/data";
 import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
+// import "./Users.module.scss";
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();

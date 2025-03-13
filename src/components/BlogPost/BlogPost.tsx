@@ -4,6 +4,7 @@ import { BlogPost, deleteBlogPost, editBlogPost } from "../../data/data";
 import blogPostsData from "../../data/blog-posts.json";
 import { Card, Typography, Spin, Button, Input, message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+// import "./BlogPost.module.scss";
 
 const { Title, Text, Paragraph } = Typography;
 
