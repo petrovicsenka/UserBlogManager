@@ -25,25 +25,16 @@ const BlogPostPage = () => {
   const [editedTitle, setEditedTitle] = useState<string>("");
   const [editedBody, setEditedBody] = useState<string>("");
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const foundPost = blogPostsData.find((p) => p.id === postId);
-  //     if (foundPost) {
-  //       setPost(foundPost);
-  //       setEditedTitle(foundPost.title);
-  //       setEditedBody(foundPost.body);
-  //     }
-  //     setLoading(false);
-  //   }, 500);
-  // }, [postId]);
-
   useEffect(() => {
-    if (!post) {
-      const foundPost = blogPostsData.find((p) => p.id === postId);
-      setPost(foundPost || null);
+    if (location.state?.post) {
+      setPost(location.state.post);
+      setEditedTitle(location.state.post.title);
+      setEditedBody(location.state.post.body);
+    } else {
+      setPost(null);
     }
     setLoading(false);
-  }, [postId, post]);
+  }, [postId, location.state?.post]);
 
   const handleSave = async () => {
     if (!post) return;
