@@ -41,3 +41,5 @@ It is up to you to decide, how many tasks and how much time to spent on each tas
 2. Consider accessibility.
 3. Ensure you are delivering 0 linting errors and 0 test failures.
 4. Feel free to add additional features to improve the user experience such as filtering, loading-spinners, anything else creative.
+
+## Node version used: 18.20.7
