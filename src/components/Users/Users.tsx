@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { fetchUsers, selectUsers } from "../../redux/user/userSlice";
 import { AppDispatch } from "../../redux/store";
@@ -12,8 +14,6 @@ import {
   deleteBlogPost,
   addBlogPost,
 } from "../../data/data";
-import { useNavigate } from "react-router-dom";
-import { DeleteOutlined } from "@ant-design/icons";
 // import "./Users.module.scss";
 
 const Users = () => {
