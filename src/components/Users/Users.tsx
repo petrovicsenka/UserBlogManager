@@ -14,7 +14,8 @@ import {
   deleteBlogPost,
   addBlogPost,
 } from "../../data/data";
-// import "./Users.module.scss";
+import "./Users.module.scss"; //1.
+// import styles from "./Users.module.scss"; //2.
 
 const Users = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -158,19 +159,19 @@ const Users = () => {
           {userPosts.length > 0 ? (
             userPosts.map((post: BlogPost) => (
               <li
-                key={post.id}
-                onClick={() =>
-                  navigate(`/blog/${post.id}`, { state: { post } })
-                }
-                style={{ margin: "0.5% 1%", cursor: "pointer" }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#1d2bb8";
-                  e.currentTarget.style.textDecoration = "underline";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "#000000";
-                  e.currentTarget.style.textDecoration = "none";
-                }}
+              // key={post.id}
+              // onClick={() =>
+              //   navigate(`/blog/${post.id}`, { state: { post } })
+              // }
+              // style={{ margin: "0.5% 1%", cursor: "pointer" }}
+              // onMouseEnter={(e) => {
+              //   e.currentTarget.style.color = "#1d2bb8";
+              //   e.currentTarget.style.textDecoration = "underline";
+              // }}
+              // onMouseLeave={(e) => {
+              //   e.currentTarget.style.color = "#000000";
+              //   e.currentTarget.style.textDecoration = "none";
+              // }}
               >
                 <span>{post.title}</span>
                 <DeleteOutlined
@@ -191,7 +192,9 @@ const Users = () => {
           )}
         </ul>
 
-        <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+        {/* <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}> */}
+        {/* <div className={styles.addBlog}> */}
+        <div className={"addBlog"}>
           <Input
             type="text"
             placeholder="Title"
